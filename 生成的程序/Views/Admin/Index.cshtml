@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="Bookmark" href="~/Content/res/image/favicon.ico">
+    <title>后台管理系统</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/jquery/jquery.min.js"></script>
+    <script src="~/Content/layer/layer.js"></script>
+</head>
+<body style="background-color: rgba(178, 0, 255,0.2);">
+    <h1 style="margin-top:150px;text-align:center;">后台管理系统</h1>
+    <div style="margin: auto;width: 300px;height: 250px;border-radius: 5px;background-color: rgba(255, 255, 255,0.2);">
+        <div style="text-align:center;">
+            <div style="padding-top:30px;">
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">输入账号</label>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <input type="text" class="form-control" id="Account" placeholder="请输入您的账号" value="@ViewData["Account"]" />
+                </div>
+            </div>
+            <div style="padding-top:70px;">
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 control-label">输入密码</label>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <input type="password" class="form-control" id="Password" placeholder="请输入您的密码" value="@ViewData["Password"]" />
+                </div>
+            </div>
+            <div style="padding-top:80px;">
+                <button class="btn btn-primary" id="Loing">立刻登录</button>
+                <button class="btn btn-danger" id="Forget">忘记密码</button>
+            </div>
+        </div>
+    </div>
+    <div style="position:fixed;left:0px; bottom:0px; width:100%;">
+        <p style="text-align:center;">© 2018 Powered by <a href="http://www.zgcwkj.top" target="_blank">zgcwkj</a></p>
+    </div>
+    <script>if (window.top !== window.self) { window.top.location = window.location; }</script>
+    <script>
+        document.onkeydown = function (e) {//回车键登录
+            var e = window.event ? window.event : e;
+            if (e.keyCode == 13) {
+                $("#Loing").click();
+            }
+        };
+        $("#Loing").click(function () {//登录按钮单击
+            var Account = $("#Account").val();
+            var Password = $("#Password").val();
+            if (Account != "" || Password != "") {
+                $.post("/Admin/Login", {
+                    Account: Account,
+                    Password: Password
+                }, function (data) {
+                    if (data == false) {
+                        layer.msg("登录失败！", { icon: 5 });
+                    } else {
+                        window.location.href = "/Admin/Main";
+                    }
+                });
+            } else {
+                layer.msg("请输入账号或密码", { icon: 3 });
+            }
+        });
+        $("#Forget").click(function () {//忘记密码按钮单击
+            layer.msg("请尝试联系该QQ：1234567", { icon: 6 });
+        });
+    </script>
+</body>
+</html>

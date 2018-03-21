@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="Bookmark" href="~/Content/res/image/favicon.ico">
+    <title>Subpage User Center</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/res/css/style.css" rel="stylesheet" />
+    <script src="~/Content/jquery/jquery.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/layer/layer.js"></script>
+</head>
+<body>
+    <div>
+        <img src="~/Content/res/image/usercenter.png" style="margin-top:5px;width:100%" />
+        <div style="width:90%;margin:auto;text-align:center;">
+            <div class="input-group" style="margin-top:30px;">
+                <span class="input-group-addon">输入账号</span>
+                <input type="text" class="form-control" id="Account" placeholder="请输入您的账号">
+            </div>
+            <div class="input-group" style="margin-top:30px;">
+                <span class="input-group-addon">输入密码</span>
+                <input type="password" class="form-control" id="Password" placeholder="请输入您的密码">
+            </div>
+            <button class="btn btn-primary" style="margin-top:30px;" onclick="Submit()">提交修改</button>
+        </div>
+    </div>
+    <script>
+        function Submit() {//提交修改按钮单击
+            var Account = $("#Account").val();
+            var Password = $("#Password").val();
+            if (Account != "" || Password != "") {
+                layer.confirm('确定要修改账号和密码吗？', {
+                    btn: ['确定', '取消']
+                }, function () {
+                    layer.msg('修改中');
+                    $.post("/Admin/ModifyUser", {
+                        Account: Account,
+                        Password: Password
+                    }, function (data) {
+                        if (data == false) {
+                            layer.msg("修改失败！", { icon: 5 });
+                        } else {
+                            window.location.href = "";
+                        }
+                    });
+                });
+            } else {
+                layer.msg("请输入账号或密码", { icon: 3 });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+/*ÑשÊ½ 20180227 Byzgcwkj*/
+.zg-bg {
+    background-image: url('../image/background.jpg');
+    background-size: cover;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    position: fixed;
+    z-index: -1;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.navbar-static-top {
+    background-color: #FFF;
+}
+
+.navbar-toggle {
+    margin-bottom: 0px;
+}
+
+.container {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    background-color: #FFF;
+}
+
+#zg-navbar {
+    background-color: #FFF;
+}
+
+.zg-footer {
+    background-color: #FFF;
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+    .zg-footer > div {
+        padding: 15px;
+        color: #58666e;
+        text-align: center;
+        border-top: 1px solid #dee5e7;
+    }
+
+#Subpage {
+    width: 100%;
+    overflow: auto;
+}
+
+.zg-main-image {
+    display: inline-block;
+    width: 290px;
+    height: 290px;
+    background-size: cover;
+    background-position: 50% 50%;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 16px;
+}

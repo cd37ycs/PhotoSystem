@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="Bookmark" href="~/Content/res/image/favicon.ico">
+    <title>Photo - By zgcwkj</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/res/css/style.css" rel="stylesheet" />
+    <script src="~/Content/jquery/jquery.min.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Content/res/js/intense.js"></script>
+</head>
+<body style="width:100%">
+    <div style="text-align:center;margin-top:10px;margin-bottom:10px;">
+        <h1>您好，欢迎光临！</h1>
+    </div>
+    <div class="layui-carousel" style="width:100%;" id="_Carousel">
+        <div carousel-item>
+        </div>
+    </div>
+    <div class="row" style="margin:auto;margin-top:30px;" id="_PhotoData">
+    </div>
+    <div style="margin-top:10px;margin-bottom:10px;text-align:center;">
+        <button class="layui-btn layer-demolist" onclick="PPage()">上一页</button>
+        <button class="layui-btn layui-btn-warm" id="PageNumber">当前页码</button>
+        <button class="layui-btn layui-btn-normal" onclick="UPage()">下一页</button>
+    </div>
+    <script>
+        function PPage() {//上一页
+            if (Page > 1) {
+                Page--;
+                FlipPages();
+            }
+        }
+        function UPage() {//下一页
+            Page++;
+            FlipPages();
+        }
+        var Page = 1;//默认打开的页码
+        var PageSize = 12;//每页数量
+        FlipPages();//跳转到某页
+        function FlipPages() {
+            $("#PageNumber").html("第" + Page + "页");
+            $.get("/Home/GetPhotoData", {
+                Page: Page,
+                PageSize: PageSize,
+            }, function (data) {
+                $("#_PhotoData").html(data);
+                if (data != "") Intense($(".zg-main-image"));
+            });
+        }
+        GetCarousel();//显示轮播
+        function GetCarousel() {
+            $.get("/Home/GetCarousel", function (data) {
+                $("#_Carousel > div").html(data);
+                layui.use('carousel', function () {
+                    var carousel = layui.carousel;
+                    carousel.render({
+                        elem: '#_Carousel',
+                        width: '100%',
+                        arrow: 'hover',
+                        interval: 5000
+                    });
+                });
+            });
+        }
+    </script>
+</body>
+</html>
